@@ -29,9 +29,9 @@ string++;
 void int_put(int num)
 {
 char sent[20];
-long unsigned int zero = 0;
+unsigned long int zero = 0;
 int neg;
-long unsigned int h;
+unsigned long int h;
 char p;
 if (num == 0)
 {
@@ -65,7 +65,7 @@ sent[zero] = '\0';
 str_put(sent);
 }
 /**
- * _printf1 - printf handling d and i
+ * _printf - printf handling d and i
  * @z:pointer
  * Return:0
  */
