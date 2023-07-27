@@ -1,7 +1,7 @@
 #include "main.h"
 #include <unistd.h>
 #include <stdarg.h>
-
+#include <string.h>
 /**
  * out_put0 - print single character
  * @v:holds value
@@ -26,7 +26,7 @@ string++;
  * int_put - convert integer to string
  * @num:holds value
  */
-void int_put(int num)
+int int_put(int num)
 {
 char sent[20];
 unsigned long int zero = 0;
@@ -63,6 +63,7 @@ sent[zero - 1 - h] = p;
 }
 sent[zero] = '\0';
 str_put(sent);
+return (strlen(sent));
 }
 /**
  * _printf - printf handling d and i
@@ -71,6 +72,8 @@ str_put(sent);
  */
 int _printf(const char *z, ...)
 {
+int letters = 0;
+int len;
 va_list numz;
 va_start(numz, z);
 while (*z)
@@ -78,23 +81,26 @@ while (*z)
 if (*z != '%')
 {
 out_put0(*z);
+letters++;
 }
 else
 {
 z++;
 if (*z == 'd' || *z == 'i')
 {
-int_put(va_arg(numz, int));
+len = int_put(va_arg(numz, int));
+letters += len;
 }
 else
 {
 out_put0('%');
 out_put0(*z);
+letters += 2;
 }
 }
 z++;
 }
 va_end(numz);
-return (0);
+return (letters);
 }
 
