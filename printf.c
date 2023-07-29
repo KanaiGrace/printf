@@ -1,15 +1,5 @@
 #include "main.h"
-#include <unistd.h>
-#include <stdarg.h>
-#include <string.h>
-/**
- * out_put0 - print single character
- * @v:holds value
- */
-void out_put0(char v)
-{
-write(1, &v, 1);
-}
+
 /**
  * str_put - prints string
  * @string:points to string
@@ -102,5 +92,61 @@ z++;
 }
 va_end(numz);
 return (letters);
+}
+
+/**
+ * _printf0 - printf handling c, s and %
+ * @format:pointer
+ * Return:0
+ */
+int _printf0(const char *format, ...) 
+{
+va_list args;
+int count;
+char c;
+char *s;
+va_start(args, format);
+
+while (*format) 
+{
+if (*format == '%') 
+{
+format++;
+switch (*format) 
+{
+case 'c':
+c = (char)va_arg(args, int);
+putchar(c);
+count++;
+break;
+case 's':
+s = va_arg(args, char *);
+while (*s) 
+{
+putchar(*s);
+s++;
+count++;
+}
+break;
+case '%':
+putchar('%');
+count++;
+break;
+default:
+putchar('%');
+putchar(*format);
+count += 2;
+break;
+}
+} else 
+{
+putchar(*format);
+count++;
+}
+format++;
+}
+
+va_end(args);
+return count;
 }
 
